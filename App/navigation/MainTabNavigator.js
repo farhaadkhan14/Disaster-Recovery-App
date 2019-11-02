@@ -3,24 +3,24 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import MapScreen from '../screens/MapScreen';
+import TipsScreen from '../screens/TipsScreen';
+import ResourcesScreen from '../screens/ResourcesScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const ResourcesStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Resources: ResourcesScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+ResourcesStack.navigationOptions = {
+  tabBarLabel: 'Resources',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -33,44 +33,44 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+ResourcesStack.path = '';
 
-const LinksStack = createStackNavigator(
+const MapStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Map: MapScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+MapStack.navigationOptions = {
+  tabBarLabel: 'Map',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
 };
 
-LinksStack.path = '';
+MapStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const TipsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Tips: TipsScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+TipsStack.navigationOptions = {
+  tabBarLabel: 'Tips',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
 };
 
-SettingsStack.path = '';
+TipsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  TipsStack,
+  MapStack,
+  ResourcesStack,
 });
 
 tabNavigator.path = '';
