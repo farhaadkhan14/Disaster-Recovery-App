@@ -1,0 +1,19 @@
+{
+  "name": "disaster-recover-app",
+  "version": "1.0.0",
+  "description": "Hacktx",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/houtanf/Disaster-Recovery-App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/houtanf/Disaster-Recovery-App/issues"
+  },
+  "homepage": "https://github.com/houtanf/Disaster-Recovery-App#readme"
+}
