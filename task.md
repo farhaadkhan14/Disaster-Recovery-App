@@ -6,3 +6,8 @@ Tasks
 
 Notes
   -Only mark in areas in your location to prevent trolling
+  -Profiles for users only need:
+    -Name
+    -Phone Number
+    -Contacts
+    -Email
