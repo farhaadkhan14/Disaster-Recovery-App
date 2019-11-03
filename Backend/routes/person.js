@@ -23,8 +23,8 @@ router.post('/update',[
   }
   update(connection,'person',req.body.id,{
     zipcode: req.body.zipcode,
-    lat: req.body.lat,
-    lon: req.body.lon,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
     status: req.body.status
   }).then((data) => res.send(data))
 

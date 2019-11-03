@@ -27,8 +27,8 @@ router.post('/update', [
   update(connection,'location',req.body.id,{
     name: req.body.name,
     zipcode: req.body.zipcode,
-    latitude: req.body.lat,
-    longitude: req.body.lon,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
     desc: req.body.desc,
     isSafe: req.body.isSafe
   }).then((data) => res.send(data))
