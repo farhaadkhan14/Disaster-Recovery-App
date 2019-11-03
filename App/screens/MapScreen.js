@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //import { MapView } from 'expo';
 import MapView, { Marker, Circle } from 'react-native-maps';
-import { Container, Header, Button, Icon, Fab } from 'native-base';
+import { Root, Container, Header, Button, Icon, Fab, Toast } from 'native-base';
 import {
   Platform,
   StyleSheet,
@@ -17,6 +17,7 @@ const MapScreen = function ({ info }) {
   const [position, setPosition] = useState(self)
   const [marks, setMarks] = useState([])
   const [fabActive, setFabActive] = useState(false)
+  const [safeDraw, setSafeDraw] = useState(false)
 
   useEffect(() => {
     if (safeLocations != safe)
@@ -30,6 +31,7 @@ const MapScreen = function ({ info }) {
   }, [safeLocations, badLocations, inDanger, self])
 
   return (
+    <Root>
     <Container>
       <Header />
       <MapView
@@ -47,27 +49,72 @@ const MapScreen = function ({ info }) {
         {renderArea(safe, '#3c9dde', 20)}
         {renderArea(bad, '#8f1209', 60)}
         {renderMarks(marks, 200)}
-
-        
       </MapView>
+
       <Fab
-          active={fabActive}
-          direction="up"
-          containerStyle={{}}
-          style={{ backgroundColor: '#5067FF' }}
-          position="bottomRight"
-          onPress={() => setFabActive(!fabActive)}>
-          <Icon name="share" />
-          <Button style={{ backgroundColor: '#4C4CFF' }} onPress={() => setSafeLocation(true)}>
-            <Icon type="Entypo" name="emoji-happy" />
-          </Button>
-          <Button style={{ backgroundColor: '#ff0000' }}>
-            <Icon type="MaterialCommunityIcons" name="skull" onPress={() => setSafeLocation(false)}/>
-          </Button>
-        </Fab>
+        active={fabActive}
+        direction="up"
+        containerStyle={{}}
+        style={{ backgroundColor: '#5067FF' }}
+        position="bottomRight"
+        onPress={() => setFabActive(!fabActive)}>
+        <Icon name="eye" />
+        <Button style={{ backgroundColor: '#4C4CFF' }} onPress={() => setSafeLocation(true)}>
+          <Icon type="Entypo" name="emoji-happy" />
+        </Button>
+        <Button style={{ backgroundColor: '#ff0000' }}>
+          <Icon type="MaterialCommunityIcons" name="skull" onPress={() => setSafeLocation(false)}/>
+        </Button>
+      </Fab>
+
+      <Fab
+        active={safeDraw}
+        direction="up"
+        containerStyle={{}}
+        style={{ backgroundColor: '#ed8d07' }}
+        position="bottomLeft"
+        onPress={() => setSafeDraw(!safeDraw)}>
+        <Icon name="medkit" />
+        <Button style={{ backgroundColor: '#4C4CFF' }} onPress={() => update(setSafeDraw, true)}>
+          <Icon type="Entypo" name="emoji-happy" />
+        </Button>
+        <Button style={{ backgroundColor: '#edd207' }} onPress={() => update(setSafeDraw, false)}>
+          <Icon type="FontAwesome5" name="tired"/>
+        </Button>
+        <Button style={{ backgroundColor: '#ed8d07' }} onPress={() => update(setSafeDraw, false)}>
+          <Icon type="FontAwesome5" name="user-injured"/>
+        </Button>
+        <Button style={{ backgroundColor: '#ff0000' }} onPress={() => update(setSafeDraw, false)}>
+          <Icon type="MaterialCommunityIcons" name="skull"/>
+        </Button>
+      </Fab>
     </Container>
+    </Root>
   );
 };
+
+const update = function(setter, safe) {
+  // Toast.show({
+  //   text: 'Status Has Been Updated',
+  //   buttonText: "Okay",
+  //   duration: 3000,
+  // })
+  setter(false)
+  if(safe)
+    sendSafeMsg()
+  else
+    sendBadMsg()
+}
+
+
+const sendSafeMsg = function() {
+  fetch('https://disasterrecoveryhacktx.azurewebsites.net/safetext/')
+}
+
+const sendBadMsg = function() {
+  fetch('https://disasterrecoveryhacktx.azurewebsites.net/unsafetext/')
+}
+
 
 const updateMarks = function (setMarks, marks, isSafeLocation, coords) {
   if (isSafeLocation) {
