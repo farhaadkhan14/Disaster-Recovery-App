@@ -15,8 +15,8 @@ router.post('/update', [
   check('name').isString(),
   check('desc').isString(),
   check('zipcode').isNumeric(),
-  check('lat').isDecimal(),
-  check('lon').isDecimal(),
+  check('latitude').isDecimal(),
+  check('longitude').isDecimal(),
   check('isSafe').isBoolean()
 ], function(req, res, next) {
   const errors = validationResult(req);
@@ -27,8 +27,8 @@ router.post('/update', [
   update(connection,'location',req.body.id,{
     name: req.body.name,
     zipcode: req.body.zipcode,
-    lat: req.body.lat,
-    lon: req.body.lon,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
     desc: req.body.desc,
     isSafe: req.body.isSafe
   }).then((data) => res.send(data))
