@@ -7,12 +7,16 @@ export default class DisplayInfoButton extends Component {
   }
   
   render() {
+    let fact = this.props.Fact;
     return (
       <Card style={{ height: 100 }}>
         <CardItem>
           <Body>
+            <Text style={{ paddingTop: 15, fontSize: 20}}>
+              {fact.title}
+            </Text>
             <Text>
-              {this.props.text}
+              {fact.desc}
             </Text>
           </Body>
         </CardItem>

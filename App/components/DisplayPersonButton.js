@@ -6,6 +6,22 @@ function calcDistance(latitudeA, latitudeB, longitudeA, longitudeB){
   return Math.sqrt(Math.pow(latitudeA - latitudeB,2) + Math.pow(longitudeA - longitudeB, 2))
 }
 
+function renderIcon(safeLevel){
+  switch(safeLevel){
+    case 0:
+      return <Icon type="FontAwesome" name="user-secret" style={{ paddingRight: 10, fontSize: 100, color: 'black' }} />
+    case 1:
+        return <Icon type="Entypo" name="emoji-happy" style={{ paddingRight: 10, fontSize: 90, color: 'black' }} />
+    case 2:
+        return <Icon type="FontAwesome5" name="tired" style={{ paddingRight: 10, fontSize: 90, color: 'black' }} />
+    case 3:
+        return <Icon type="FontAwesome5" name="user-injured" style={{ paddingRight: 10, fontSize: 100, color: 'black' }} />
+    case 4:
+        return <Icon type="MaterialCommunityIcons" name="skull" style={{ paddingRight: 10, fontSize: 100, color: 'black' }} />
+  }
+
+}
+
 export default class DisplayPersonButton extends Component {
   constructor(props) {
     super(props);
@@ -15,11 +31,11 @@ export default class DisplayPersonButton extends Component {
     let person = this.props.Person;
     let me = this.props.Me;
     return (
-      <Card style={{ height: 110 }}>
+      <Card key={person.id} style={{ height: 110 }}>
         <CardItem button>
           <Body style={{ flexDirection: 'row' }}>
             <View>
-              <Icon type="FontAwesome" name="user-secret" style={{ paddingRight: 10, fontSize: 100, color: 'black' }} />
+              {renderIcon(person.status)}
             </View>
             <View style={{ flexDirection: 'col' }}>
               <View>
@@ -42,7 +58,7 @@ export default class DisplayPersonButton extends Component {
                 <Item rounded>
                   <Text style={{ padding: 2, paddingLeft: 10, paddingRight: 10, fontSize: 20}} >
                     Urgency: 
-                    {person.urgency}
+                    {person.status}
                   </Text>
                 </Item>
               </View>
