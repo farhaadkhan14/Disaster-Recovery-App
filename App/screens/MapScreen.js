@@ -7,18 +7,13 @@ import {
 } from 'react-native'
 
 
-const MapScreen = function({ safeLocations, badLocations, inDanger, self }) {
-
-  safeLocations = [{ latitude: 30.2832272, longitude: -97.741203 }]
-  badLocations = [{ latitude: 30.2822216, longitude: -97.74120254 }]
-  inDanger = []
-  self = { latitude: 30.2822200, longitude: -97.7412049, latitudeDelta: 0.005, longitudeDelta: 0.005}
+const MapScreen = function({ info }) {
+  const { safeLocations, badLocations, inDanger, self } = info
 
   const [safe, setSafe] = useState(safeLocations)
   const [bad, setBad] = useState(badLocations)
   const [people, setPeople] = useState(inDanger)
   const [position, setPosition] = useState(self)
-  console.log(safe)
 
   useEffect(() => {
     if(safeLocations != safe)

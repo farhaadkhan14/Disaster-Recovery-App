@@ -7,8 +7,31 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator';
 
+import getLocation from './utils/Location';
+
+
+const updateLocation = function(setLocation, { coords }) {
+  setLocation(coords)
+}
+
+const updateInfo = function(setSafe, setBad, setPeople, { person, location }) {
+  const bads = location.filter( loc => !loc.isSafe )
+  const safes = location.filter( loc => loc.isSafe )
+  setPeople(person)
+  setBad(bads)
+  setSafe(safes)
+}
+
+
+const initSelf = { latitude: 30.2822200, longitude: -97.7412049, latitudeDelta: 0.005, longitudeDelta: 0.005}
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  const [self, setLocation] = useState(initSelf)
+  const [safeLocations, setSafe] = useState([])
+  const [badLocations, setBad] = useState([])
+  const [inDanger, setPeople] = useState([])
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -19,10 +42,11 @@ export default function App(props) {
       />
     );
   } else {
+    getLocation(updateLocation.bind(this, setLocation))
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
+        <AppNavigator screenProps={{ safeLocations, badLocations, inDanger, self }}/>
       </View>
     );
   }

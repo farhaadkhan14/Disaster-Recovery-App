@@ -40,14 +40,15 @@ ResourcesStack.path = '';
 const safeLocations = [{ latitude: 30.2832272, longitude: -97.741203 }]
 const badLocations = [{ latitude: 30.2822216, longitude: -97.74120254 }]
 const inDanger = []
-const self = { latitude: 30.2822200, longitude: -97.7412049, latitudeDelta: 0.005, longitudeDelta: 0.005}
 
-const MapStack = createStackNavigator(
-  {
-    Map: MapScreen.bind(this, { safeLocations, badLocations, inDanger, self}),
-  },
-  config
-);
+//const MapStack = createStackNavigator(
+//  {
+//    Map: props => <MapScreen info={props.screenProps.eInfo} />,
+//  },
+//  config
+//);
+
+const MapStack = props => <MapScreen info={props.screenProps} />
 
 MapStack.navigationOptions = {
   tabBarLabel: 'Map',
@@ -58,12 +59,14 @@ MapStack.navigationOptions = {
 
 MapStack.path = '';
 
-const TipsStack = createStackNavigator(
-  {
-    Tips: TipsScreen,
-  },
-  config
-);
+//const TipsStack = createStackNavigator(
+//  {
+//    Tips: props => <TipsScreen info={props.screenProps.eInfo} />,
+//  },
+//  config
+//);
+
+const TipsStack = props => <TipsScreen info={props.screenProps} />
 
 TipsStack.navigationOptions = {
   tabBarLabel: 'Tips',
@@ -75,9 +78,9 @@ TipsStack.navigationOptions = {
 TipsStack.path = '';
 
 const tabNavigator = createMaterialBottomTabNavigator({
-  TipsStack,
-  MapStack,
   ResourcesStack,
+  MapStack,
+  TipsStack,
 });
 
 tabNavigator.path = '';

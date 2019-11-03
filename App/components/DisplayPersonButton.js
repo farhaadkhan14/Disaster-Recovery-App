@@ -21,7 +21,7 @@ export default class DisplayPersonButton extends Component {
             <View>
               <Icon type="FontAwesome" name="user-secret" style={{ paddingRight: 10, fontSize: 100, color: 'black' }} />
             </View>
-            <View style={{ flexDirection: 'col' }}>
+            <View style={{ flexDirection: 'column' }}>
               <View>
                 <Item rounded>
                   <Text style={{ padding: 2, paddingLeft: 10, paddingRight: 10, fontSize: 20 }} >
