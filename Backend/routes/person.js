@@ -13,8 +13,8 @@ const connection = establishConnection(uri);
 router.post('/update',[
   check('id').isString(),
   check('zipcode').isNumeric(),
-  check('lat').isDecimal(),
-  check('lon').isDecimal(),
+  check('latitude').isDecimal(),
+  check('longitude').isDecimal(),
   check('status').isString(),
 ], function (req, res, next) {
   const errors = validationResult(req);
@@ -24,8 +24,8 @@ router.post('/update',[
   console.log(req)
   update(connection,'person',req.body.id,{
     zipcode: req.body.zipcode,
-    lat: req.body.lat,
-    lon: req.body.lon,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
     status: req.body.status
   }).then((data) => res.send(data))
 
