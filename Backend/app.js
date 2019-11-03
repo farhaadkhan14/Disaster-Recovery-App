@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
+var {sendMessage} = require('./routes/twilio')
 
 var app = express();
 
@@ -23,6 +24,22 @@ var {router:personRouter} = require('./routes/person');
 app.get('/', (req, res) => res.send('Disaster Recovery App is on Azure!'))
 app.use('/location', locationRouter);
 app.use('/person', personRouter);
+
+const numbers = ['+18325334573']
+
+app.get('/safetext', (req,res) => {
+  numbers.forEach(element => {
+    sendMessage(element,'Mark Smith is safe').then(message => console.log(message)).done();
+  });
+  res.send({message:'success'})
+})
+
+app.get('/unsafetext', (req,res) => {
+  numbers.forEach(element => {
+    sendMessage(element,'yourmom').then(message => console.log(message)).done();
+  });
+  res.send({message:'success'})
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
