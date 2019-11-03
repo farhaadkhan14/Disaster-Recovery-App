@@ -36,9 +36,15 @@ ResourcesStack.navigationOptions = {
 
 ResourcesStack.path = '';
 
+
+const safeLocations = [{ latitude: 30.2832272, longitude: -97.741203 }]
+const badLocations = [{ latitude: 30.2822216, longitude: -97.74120254 }]
+const inDanger = []
+const self = { latitude: 30.2822200, longitude: -97.7412049, latitudeDelta: 0.005, longitudeDelta: 0.005}
+
 const MapStack = createStackNavigator(
   {
-    Map: MapScreen,
+    Map: MapScreen.bind(this, { safeLocations, badLocations, inDanger, self}),
   },
   config
 );

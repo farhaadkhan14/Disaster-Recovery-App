@@ -1,17 +1,26 @@
-import React, { useState, useEvent } from 'react';
-import { MapView } from 'expo';
+import React, { useState, useEffect } from 'react';
+//import { MapView } from 'expo';
+import MapView, { Marker, HeatMap, Circle } from 'react-native-maps';
+import {
+  Platform,
+  StyleSheet,
+} from 'react-native'
 
-const Marker = MapView.Marker
-const HeatMap = MapView.HeatMap
-const Circle = MapView.Circle
 
-const Map = function({ safeLocations, badLocations, inDanger, self }) {
+const MapScreen = function({ safeLocations, badLocations, inDanger, self }) {
+
+  safeLocations = [{ latitude: 30.2832272, longitude: -97.741203 }]
+  badLocations = [{ latitude: 30.2822216, longitude: -97.74120254 }]
+  inDanger = []
+  self = { latitude: 30.2822200, longitude: -97.7412049, latitudeDelta: 0.005, longitudeDelta: 0.005}
+
   const [safe, setSafe] = useState(safeLocations)
   const [bad, setBad] = useState(badLocations)
   const [people, setPeople] = useState(inDanger)
   const [position, setPosition] = useState(self)
+  console.log(safe)
 
-  useEvent(() => {
+  useEffect(() => {
     if(safeLocations != safe)
       setSafe(safeLocations)
     if(badLocations != bad)
@@ -23,15 +32,14 @@ const Map = function({ safeLocations, badLocations, inDanger, self }) {
   },[safeLocations, badLocations, inDanger, self])
 
   return (
-<<<<<<< HEAD
     <MapView
       style={styles.container}
       region={position}
       showsUserLocation
     >
       { renderPeople(people) }
-      { renderDanger(bad) }
-      { renderSafe(safe) }
+      { renderArea(safe, '#3c9dde') }
+      { renderArea(bad, '#8f1209') }
     </MapView>
   )
 };
@@ -46,61 +54,6 @@ const renderPeople = function(people) {
       pinColor={statusColor(status)}
     />  
   )
-=======
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-
-        <View style={styles.getStartedContainer}>   
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
-    </View>
-  );
->>>>>>> b1ad2a4dd796091c96ef6831dbfb237e26a7293a
 }
 
 
@@ -114,25 +67,20 @@ const statusColor = function(status) {
 }
 
 
-const renderSafe = function(areas) {
+const renderArea = function(areas, color) {
   return areas.map( coords => 
     <Circle 
       center={coords}
-      radius={10}
-      fillColor={'#3c9dde'}
+      radius={17}
+      fillColor={color}
     /> 
    )
 }
 
 
-const renderDanger = function(areas) {
-  return <HeatMap points={areas} />
-}
-
-
-HomeScreen.navigationOptions = {
-  header: null,
-};
+//const renderDanger = function(areas) {
+//  return ( <HeatMap points={areas} /> )
+//}
 
 
 const styles = StyleSheet.create({
@@ -225,4 +173,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Map;
+export default MapScreen;
