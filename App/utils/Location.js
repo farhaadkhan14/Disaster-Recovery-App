@@ -1,4 +1,5 @@
-import { Location, Permissions } from 'expo';
+import { Location } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 
 const getLocation = async function(callback) {
@@ -8,3 +9,4 @@ const getLocation = async function(callback) {
 };
 
 
+export default getLocation;
