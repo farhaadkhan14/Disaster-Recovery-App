@@ -13,6 +13,8 @@ import getUpdates from './utils/Sockets';
 
 
 const updateLocation = function(setLocation, { coords }) {
+  coords.latitudeDelta = 0.05
+  coords.longitudeDelta = 0.05
   setLocation(coords)
 }
 

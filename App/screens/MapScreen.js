@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //import { MapView } from 'expo';
-import MapView, { Marker, HeatMap, Circle } from 'react-native-maps';
-import { Container, Header, View, Button, Icon, Fab } from 'native-base';
+import MapView, { Marker, Circle } from 'react-native-maps';
+import { Container, Header, Button, Icon, Fab } from 'native-base';
 import {
   Platform,
   StyleSheet,
@@ -111,6 +111,7 @@ const statusColor = function (status) {
     case 1: return '#2ca629'
     case 2: return '#c9c012'
     case 3: return '#ff0000'
+    case 3: return '#000000'
   }
 }
 
@@ -120,7 +121,7 @@ const renderArea = function (areas, color, offset) {
     <Circle
       key={index + offset}
       center={coords}
-      radius={30}
+      radius={300}
       fillColor={color}
     />
   )
