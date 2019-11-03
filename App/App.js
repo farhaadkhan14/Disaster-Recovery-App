@@ -4,26 +4,37 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+const isEqual = require('lodash.isequal');
 
 import AppNavigator from './navigation/AppNavigator';
 
 import getLocation from './utils/Location';
+import getUpdates from './utils/Sockets';
 
 
 const updateLocation = function(setLocation, { coords }) {
   setLocation(coords)
 }
 
-const updateInfo = function(setSafe, setBad, setPeople, { person, location }) {
+const updateInfo = function(setSafe, setBad, setPeople, oldPeople, oldSafe, oldDang, { person, location }) {
   const bads = location.filter( loc => !loc.isSafe )
   const safes = location.filter( loc => loc.isSafe )
-  setPeople(person)
-  setBad(bads)
-  setSafe(safes)
+  if(!isEqual(oldPeople, person)) {
+    setPeople(person)
+    console.log('ho')
+  }
+  if(!isEqual(oldSafe, safes)) {
+    setSafe(safes)
+    console.log('ho2')
+  }
+  if(!isEqual(oldDang, bads)) {
+    setBad(bads)
+    console.log('ho3')
+  }
 }
 
 
-const initSelf = { latitude: 30.2822200, longitude: -97.7412049, latitudeDelta: 0.005, longitudeDelta: 0.005}
+const initSelf = { latitude: 30.2822200, longitude: -97.7412049 }
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -43,6 +54,7 @@ export default function App(props) {
     );
   } else {
     getLocation(updateLocation.bind(this, setLocation))
+    getUpdates( updateInfo.bind(this, setSafe, setBad, setPeople, inDanger, safeLocations, badLocations) )
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
