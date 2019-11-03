@@ -1,3 +1,5 @@
 {
-    "mongoDBuri" : "mongodb+srv://coderkhan:austin123@dra-vajm6.azure.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoDBuri" : "mongodb+srv://coderkhan:austin123@dra-vajm6.azure.mongodb.net/test?retryWrites=true&w=majority",
+    "defaultZipCode" : 12345,
+    "defaultId" : "5dbe960a1c9d44000084537e"
 }
