@@ -108,7 +108,7 @@ class RescuePage extends Component {
     return (
       <Container style={{ height: 50 }}>
         <Content>
-          {inDanger.map((person) => <DisplayPersonButton key={person.id} Person={person} Me={self} />)}
+          {inDanger.map((person) => <DisplayPersonButton key={person._id} Person={person} Me={self} />)}
         </Content>
       </Container>
     );
@@ -125,7 +125,7 @@ class DangerPage extends Component {
     return (
       <Container style={{ height: 50 }}>
         <Content>
-          {badLocations.map((location) => !location.isSafe ? (<DisplayLocationButton key={location.id} Location={location} Me={self} />) : null )}
+          {badLocations.map((location) => !location.isSafe ? (<DisplayLocationButton key={location._id} Location={location} Me={self} />) : null )}
         </Content>
       </Container>
     );
@@ -142,7 +142,7 @@ class SafePage extends Component {
     return (
       <Container style={{ height: 50 }}>
         <Content>
-          {safeLocations.map((location) => location.isSafe ? (<DisplayLocationButton key={location.id} Location={location} Me={self} />) : (null) )}
+          {safeLocations.map((location) => location.isSafe ? (<DisplayLocationButton key={location._id} Location={location} Me={self} />) : (null) )}
         </Content>
       </Container>
     );

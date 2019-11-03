@@ -43,7 +43,7 @@ export default class DisplayLocationButton extends Component {
                 <Item rounded>
                   <Text style={{ padding: 2, paddingLeft: 10, paddingRight: 10, fontSize: 20 }} >
                     Distance: 
-                    {calcDistance(location.lon, me.lon, location.lat, me.lat)}
+                    {calcDistance(location.longitude, me.longitude, location.latitude, me.latitude)}
                   </Text>
                 </Item>
               </View>

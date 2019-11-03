@@ -50,7 +50,7 @@ export default class DisplayPersonButton extends Component {
                 <Item rounded>
                   <Text style={{ padding: 2, paddingLeft: 10, paddingRight: 10, fontSize: 20 }} >
                     Distance: 
-                    {calcDistance(person.lon, me.lon, person.lat, me.lat)}
+                    {calcDistance(person.longitude, me.longitude, person.latitude, me.latitude)}
                   </Text>
                 </Item>
               </View>

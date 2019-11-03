@@ -29,20 +29,21 @@ const MapScreen = function({ info }) {
   return (
     <MapView
       style={styles.container}
-      region={position}
+      region={{ latitudeDelta: 0.05, longitudeDelta: 0.05, ...position }}
       showsUserLocation
     >
       { renderPeople(people) }
-      { renderArea(safe, '#3c9dde') }
-      { renderArea(bad, '#8f1209') }
+      { renderArea(safe, '#3c9dde', 20) }
+      { renderArea(bad, '#8f1209', 60) }
     </MapView>
   )
 };
 
 
 const renderPeople = function(people) {
-  return people.map( ({ name, description, status, latitude, longitude }) =>
+  return people.map( ({ name, description, status, latitude, longitude }, index) =>
     <Marker
+      key={index}
       title={name}
       description={description}
       coordinate={{latitude, longitude}}
@@ -62,9 +63,10 @@ const statusColor = function(status) {
 }
 
 
-const renderArea = function(areas, color) {
-  return areas.map( coords => 
+const renderArea = function(areas, color, offset) {
+  return areas.map( (coords, index) => 
     <Circle 
+      key={index + offset}
       center={coords}
       radius={17}
       fillColor={color}
