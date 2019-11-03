@@ -16,7 +16,8 @@ router.post('/update', [
   check('desc').isString(),
   check('zipcode').isNumeric(),
   check('lat').isDecimal(),
-  check('lon').isDecimal()
+  check('lon').isDecimal(),
+  check('isSafe').isBoolean()
 ], function(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -28,7 +29,8 @@ router.post('/update', [
     zipcode: req.body.zipcode,
     lat: req.body.lat,
     lon: req.body.lon,
-    desc: req.body.desc
+    desc: req.body.desc,
+    isSafe: req.body.isSafe
   }).then((data) => res.send(data))
 
 })
@@ -53,6 +55,12 @@ router.post('/retrieve',[], function (req, res, next) {
   retrieve(connection,'location',{_id: ObjectID(req.body.id)}).then((data) => res.send(data))
 
 })
+
+const everyoneNotHher = (zipcode) => {
+  return retrieve(connection,'location',{zipcode})
+}
+
+everyoneNotHher(101016).then((data) => console.log(data.length))
 
 
 module.exports = router;
