@@ -14,7 +14,7 @@ router.post('/update', [
   check('id').isString(),
   check('name').isString(),
   check('desc').isString(),
-  check('zipcode').isNumeric(),
+  check('zipcode').isNumeric().isLength({ max: 5}),
   check('latitude').isDecimal(),
   check('longitude').isDecimal(),
   check('isSafe').isBoolean()
@@ -26,9 +26,9 @@ router.post('/update', [
   console.log(req)
   update(connection,'location',req.body.id,{
     name: req.body.name,
-    zipcode: req.body.zipcode,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
+    zipcode: parseInt(req.body.zipcode),
+    latitude: parseFloat(req.body.latitude),
+    longitude: parseFloat(req.body.longitude),
     desc: req.body.desc,
     isSafe: req.body.isSafe
   }).then((data) => res.send(data))
@@ -48,7 +48,14 @@ router.post('/insert',[
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  insert(connection,'location',req.body).then((data) => res.send(data))
+  insert(connection,'location',{
+    name: req.body.name,
+    zipcode: parseInt(req.body.zipcode),
+    latitude: parseFloat(req.body.latitude),
+    longitude: parseFloat(req.body.longitude),
+    desc: req.body.desc,
+    isSafe: req.body.isSafe
+  }).then((data) => res.send(data))
 
 })
 
