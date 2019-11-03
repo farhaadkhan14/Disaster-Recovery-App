@@ -30,7 +30,7 @@ router.post('/update', [
     latitude: parseFloat(req.body.latitude),
     longitude: parseFloat(req.body.longitude),
     desc: req.body.desc,
-    isSafe: req.body.isSafe
+    isSafe: (req.body.isSafe == 'true')
   }).then((data) => res.send(data))
 
 })
@@ -54,7 +54,7 @@ router.post('/insert',[
     latitude: parseFloat(req.body.latitude),
     longitude: parseFloat(req.body.longitude),
     desc: req.body.desc,
-    isSafe: req.body.isSafe
+    isSafe: (req.body.isSafe == 'true')
   }).then((data) => res.send(data))
 
 })
