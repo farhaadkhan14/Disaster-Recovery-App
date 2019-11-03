@@ -15,13 +15,12 @@ router.post('/update',[
   check('zipcode').isNumeric(),
   check('latitude').isDecimal(),
   check('longitude').isDecimal(),
-  check('status').isString(),
+  check('status').isString()
 ], function (req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  console.log(req)
   update(connection,'person',req.body.id,{
     zipcode: req.body.zipcode,
     latitude: req.body.latitude,
@@ -31,12 +30,15 @@ router.post('/update',[
 
 })
 
-router.post('/insert',[], function (req, res, next) {
+router.post('/insert',[
+check('zipcode').isNumeric(),
+check('latitude').isDecimal(),
+check('longitude').isDecimal(),
+check('status').isString()], function (req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  console.log(req)
   insert(connection,'person',req.body).then((data) => res.send(data))
 
 })
@@ -46,7 +48,6 @@ router.post('/retrieve',[], function (req, res, next) {
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  console.log(req)
   retrieve(connection,'person',{_id: ObjectID(req.body.id)}).then((data) => res.send(data))
 
 })
