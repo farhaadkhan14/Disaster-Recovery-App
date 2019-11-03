@@ -34,7 +34,7 @@ const updateInfo = function(setSafe, setBad, setPeople, oldPeople, oldSafe, oldD
 }
 
 
-const initSelf = { latitude: 30.2822200, longitude: -97.7412049 }
+const initSelf = { latitude: 30.2822200, longitude: -97.7412049, latitudeDelta: 0.05, longitudeDelta: 0.05 }
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);

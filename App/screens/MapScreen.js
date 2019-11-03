@@ -29,8 +29,13 @@ const MapScreen = function({ info }) {
   return (
     <MapView
       style={styles.container}
-      region={{ latitudeDelta: 0.05, longitudeDelta: 0.05, ...position }}
+      initialRegion={position}
       showsUserLocation
+      showsMyLocationButton
+      showsPointsOfInterest
+      showsCompass
+      showsScale
+      showsBuildings
     >
       { renderPeople(people) }
       { renderArea(safe, '#3c9dde', 20) }
@@ -68,7 +73,7 @@ const renderArea = function(areas, color, offset) {
     <Circle 
       key={index + offset}
       center={coords}
-      radius={17}
+      radius={30}
       fillColor={color}
     /> 
    )
