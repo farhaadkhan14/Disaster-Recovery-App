@@ -45,7 +45,8 @@ const factsData = [{
 }]
 
 
-export default function TipsScreen() {
+export default function TipsScreen({info}) {
+  let {safeLocations, badLocations, inDanger, self} = info;
   return (
     <Container style = {{height: 50}}>
       <Header />

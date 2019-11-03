@@ -99,12 +99,16 @@ const Me = {
 }
 
 class RescuePage extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
-    console.log(PersonData)
+    let {safeLocations, badLocations, inDanger, self} = this.props.screenProps
     return (
       <Container style={{ height: 50 }}>
         <Content>
-          {PersonData.map((person) => <DisplayPersonButton key={person.id} Person={person} Me={Me} />)}
+          {inDanger.map((person) => <DisplayPersonButton key={person.id} Person={person} Me={self} />)}
         </Content>
       </Container>
     );
@@ -112,12 +116,16 @@ class RescuePage extends Component {
 }
 
 class DangerPage extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
-    console.log(LocationData)
+    let { badLocations, self} = this.props.screenProps
     return (
       <Container style={{ height: 50 }}>
         <Content>
-          {LocationData.map((location) => !location.isSafe ? (<DisplayLocationButton key={location.id} Location={location} Me={Me} />) : null )}
+          {badLocations.map((location) => !location.isSafe ? (<DisplayLocationButton key={location.id} Location={location} Me={self} />) : null )}
         </Content>
       </Container>
     );
@@ -125,12 +133,16 @@ class DangerPage extends Component {
 }
 
 class SafePage extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
-    console.log(LocationData)
+    let {safeLocations, self} = this.props.screenProps
     return (
       <Container style={{ height: 50 }}>
         <Content>
-          {LocationData.map((location) => location.isSafe ? (<DisplayLocationButton key={location.id} Location={location} Me={Me} />) : (null) )}
+          {safeLocations.map((location) => location.isSafe ? (<DisplayLocationButton key={location.id} Location={location} Me={self} />) : (null) )}
         </Content>
       </Container>
     );
