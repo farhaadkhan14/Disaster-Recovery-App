@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 import TabBarIcon from '../components/TabBarIcon';
 import MapScreen from '../screens/MapScreen';
@@ -35,12 +36,19 @@ ResourcesStack.navigationOptions = {
 
 ResourcesStack.path = '';
 
-const MapStack = createStackNavigator(
-  {
-    Map: MapScreen,
-  },
-  config
-);
+
+const safeLocations = [{ latitude: 30.2832272, longitude: -97.741203 }]
+const badLocations = [{ latitude: 30.2822216, longitude: -97.74120254 }]
+const inDanger = []
+
+//const MapStack = createStackNavigator(
+//  {
+//    Map: props => <MapScreen info={props.screenProps.eInfo} />,
+//  },
+//  config
+//);
+
+const MapStack = props => <MapScreen info={props.screenProps} />
 
 MapStack.navigationOptions = {
   tabBarLabel: 'Map',
@@ -51,12 +59,14 @@ MapStack.navigationOptions = {
 
 MapStack.path = '';
 
-const TipsStack = createStackNavigator(
-  {
-    Tips: TipsScreen,
-  },
-  config
-);
+//const TipsStack = createStackNavigator(
+//  {
+//    Tips: props => <TipsScreen info={props.screenProps.eInfo} />,
+//  },
+//  config
+//);
+
+const TipsStack = props => <TipsScreen info={props.screenProps} />
 
 TipsStack.navigationOptions = {
   tabBarLabel: 'Tips',
@@ -67,10 +77,10 @@ TipsStack.navigationOptions = {
 
 TipsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  TipsStack,
-  MapStack,
+const tabNavigator = createMaterialBottomTabNavigator({
   ResourcesStack,
+  MapStack,
+  TipsStack,
 });
 
 tabNavigator.path = '';

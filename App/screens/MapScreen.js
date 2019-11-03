@@ -1,17 +1,21 @@
-import React, { useState, useEvent } from 'react';
-import { MapView } from 'expo';
+import React, { useState, useEffect } from 'react';
+//import { MapView } from 'expo';
+import MapView, { Marker, HeatMap, Circle } from 'react-native-maps';
+import {
+  Platform,
+  StyleSheet,
+} from 'react-native'
 
-const Marker = MapView.Marker
-const HeatMap = MapView.HeatMap
-const Circle = MapView.Circle
 
-const Map = function({ safeLocations, badLocations, inDanger, self }) {
+const MapScreen = function({ info }) {
+  const { safeLocations, badLocations, inDanger, self } = info
+
   const [safe, setSafe] = useState(safeLocations)
   const [bad, setBad] = useState(badLocations)
   const [people, setPeople] = useState(inDanger)
   const [position, setPosition] = useState(self)
 
-  useEvent(() => {
+  useEffect(() => {
     if(safeLocations != safe)
       setSafe(safeLocations)
     if(badLocations != bad)
@@ -29,8 +33,8 @@ const Map = function({ safeLocations, badLocations, inDanger, self }) {
       showsUserLocation
     >
       { renderPeople(people) }
-      { renderDanger(bad) }
-      { renderSafe(safe) }
+      { renderArea(safe, '#3c9dde') }
+      { renderArea(bad, '#8f1209') }
     </MapView>
   )
 };
@@ -58,25 +62,20 @@ const statusColor = function(status) {
 }
 
 
-const renderSafe = function(areas) {
+const renderArea = function(areas, color) {
   return areas.map( coords => 
     <Circle 
       center={coords}
-      radius={10}
-      fillColor={'#3c9dde'}
+      radius={17}
+      fillColor={color}
     /> 
    )
 }
 
 
-const renderDanger = function(areas) {
-  return <HeatMap points={areas} />
-}
-
-
-HomeScreen.navigationOptions = {
-  header: null,
-};
+//const renderDanger = function(areas) {
+//  return ( <HeatMap points={areas} /> )
+//}
 
 
 const styles = StyleSheet.create({
@@ -169,4 +168,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Map;
+export default MapScreen;
