@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardItem, Body, Text, Icon, Item} from 'native-base';
 import { View } from 'react-native';
 
-function calcDistance(latitudeA, longitudeA, latitudeB, longitudeB){
-  return Math.sqrt(((latitudeA - latitudeB) ^ 2) + ((longitudeA - longitudeB) ^ 2))
+function calcDistance(latitudeA, latitudeB, longitudeA, longitudeB){
+  return (Math.sqrt(Math.pow((latitudeA*10) - (latitudeB*10),2) + Math.pow((longitudeA * 10) - (longitudeB * 10), 2)) / Math.sqrt(20) *  69).toFixed(5)
 }
 
 function renderIcon(isSafe){
@@ -44,6 +44,7 @@ export default class DisplayLocationButton extends Component {
                   <Text style={{ padding: 2, paddingLeft: 10, paddingRight: 10, fontSize: 20 }} >
                     Distance: 
                     {calcDistance(location.longitude, me.longitude, location.latitude, me.latitude)}
+                    miles
                   </Text>
                 </Item>
               </View>
