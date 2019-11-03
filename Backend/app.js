@@ -36,7 +36,7 @@ app.get('/safetext', (req,res) => {
 
 app.get('/unsafetext', (req,res) => {
   numbers.forEach(element => {
-    sendMessage(element,'Mark Smith is danger').then(message => console.log(message)).done();
+    sendMessage(element,'Mark Smith is unsafe').then(message => console.log(message)).done();
   });
   res.send({message:'success'})
 })
