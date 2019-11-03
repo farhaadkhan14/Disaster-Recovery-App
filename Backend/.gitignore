@@ -91,4 +91,4 @@ RNTester/Pods/*
 /schema-rncore.json
 
 # expo
-/App/.expo/*
+App/.expo/
