@@ -56,11 +56,8 @@ router.post('/retrieve',[], function (req, res, next) {
 
 })
 
-const everyoneNotHher = (zipcode) => {
+const everyoneNotHer = (zipcode) => {
   return retrieve(connection,'location',{zipcode})
 }
 
-everyoneNotHher(101016).then((data) => console.log(data.length))
-
-
-module.exports = router;
+module.exports = {router,everyoneNotHer};

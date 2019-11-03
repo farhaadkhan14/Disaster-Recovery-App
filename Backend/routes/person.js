@@ -56,6 +56,4 @@ const everyoneNotHim = (zipcode,id) => {
   return retrieve(connection,'person',{zipcode}).then(data => data.filter((element) => element._id != id))
 }
 
-// everyoneNotHim(101016,'5dbe2db41c9d4400009c45a7').then((data) => console.log(data.length))
-
-module.exports = router
+module.exports = {router, everyoneNotHim}
