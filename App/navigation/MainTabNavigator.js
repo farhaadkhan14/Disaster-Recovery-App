@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 import TabBarIcon from '../components/TabBarIcon';
 import MapScreen from '../screens/MapScreen';
@@ -67,7 +68,7 @@ TipsStack.navigationOptions = {
 
 TipsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
+const tabNavigator = createMaterialBottomTabNavigator({
   TipsStack,
   MapStack,
   ResourcesStack,
