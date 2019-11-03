@@ -1,5 +1,5 @@
 {
     "mongoDBuri" : "mongodb+srv://coderkhan:austin123@dra-vajm6.azure.mongodb.net/test?retryWrites=true&w=majority",
-    "defaultZipCode" : 12345,
-    "defaultId" : "5dbe960a1c9d44000084537e"
+    "defaultZipCode" : 78705,
+    "defaultId" : "5dbed5ec3c5d2185e3284db8"
 }

@@ -15,17 +15,17 @@ router.post('/update',[
   check('zipcode').isNumeric(),
   check('latitude').isDecimal(),
   check('longitude').isDecimal(),
-  check('status').isString()
+  check('status').isInt()
 ], function (req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
   update(connection,'person',req.body.id,{
-    zipcode: req.body.zipcode,
-    lat: req.body.lat,
-    lon: req.body.lon,
-    status: req.body.status
+    zipcode: parseInt(req.body.zipcode),
+    latitude: parseFloat(req.body.latitude),
+    longitude: parseFloat(req.body.longitude),
+    status: parseInt(req.body.status),
   }).then((data) => res.send(data))
 
 })
@@ -34,12 +34,19 @@ router.post('/insert',[
 check('zipcode').isNumeric(),
 check('latitude').isDecimal(),
 check('longitude').isDecimal(),
-check('status').isString()], function (req, res, next) {
+check('status').isInt(),
+check('name').isString()], function (req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  insert(connection,'person',req.body).then((data) => res.send(data))
+  insert(connection,'person',{
+    zipcode: parseInt(req.body.zipcode),
+    latitude: parseFloat(req.body.latitude),
+    longitude: parseFloat(req.body.longitude),
+    status: parseInt(req.body.status),
+    name: req.body.name
+  }).then((data) => res.send(data))
 
 })
 
@@ -56,5 +63,6 @@ router.post('/retrieve',[], function (req, res, next) {
 const everyoneNotHim = (zipcode,id) => {
   return retrieve(connection,'person',{zipcode}).then(data => data.filter((element) => element._id != id))
 }
+
 
 module.exports = {router, everyoneNotHim}
