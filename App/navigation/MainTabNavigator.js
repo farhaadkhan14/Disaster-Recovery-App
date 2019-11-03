@@ -78,8 +78,8 @@ TipsStack.navigationOptions = {
 TipsStack.path = '';
 
 const tabNavigator = createMaterialBottomTabNavigator({
-  ResourcesStack,
   MapStack,
+  ResourcesStack,
   TipsStack,
 });
 
